@@ -1,13 +1,14 @@
-import Head from 'next/head';
+import React from 'react';
 import styles from '../styles/Home.module.css';
+import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
 
-const AboutPage = () => {
+const Contact = () => {
     return (
-        <div className={styles.container} >
+        <div className={styles.container}>
             <Head>
-                <title>About - Juan Martin Silva</title>
+                <title>Contact - Juan Martin Silva</title>
                 <meta name="description" content="Home page" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
@@ -17,17 +18,18 @@ const AboutPage = () => {
             <main className={styles.main}>
 
                 <h1 className={styles.title}>
-                    {/* Ir al <a href="/">Home</a> */}
-                    Ir al <Link href='/' >Home</Link>
+                {/* Ir al <a href="/about">About</a> */}
+                Ir al <Link href='/'>Home</Link>
                 </h1>
 
                 <p className={styles.description}>
-                    Get started by editing{' '} <code className={styles.code}>pages/about.jsx</code>
+                Get started by editing{' '}
+                <code className={styles.code}>pages/contact.jsx</code>
                 </p>
 
             </main>
-    </div>
-    );
-};
+        </div>
+    )
+}
 
-export default AboutPage;
+export default Contact;
