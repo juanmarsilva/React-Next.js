@@ -3,7 +3,11 @@ import Head from 'next/head';
 import Navbar from '../Navbar';
 import styles from './MainLayout.module.css';
 
-const MainLayout = ({ children }) => {
+interface Props {
+    children?: JSX.Element | JSX.Element[];
+}
+
+const MainLayout: FC<Props> = ({ children }) => {
     
     return (
         <div className={styles.container}>
