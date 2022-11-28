@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Head from 'next/head';
-import Navbar from '../../components/Navbar';
+import Navbar from '../Navbar';
 import styles from './MainLayout.module.css';
 
-const MainLayout = ( { children } ) => {
+const MainLayout = ({ children }) => {
     
     return (
         <div className={styles.container}>

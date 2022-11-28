@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DarkLayout = ( { children } ) => {
+const DarkLayout = ({ children }) => {
 
     return (
         <div style={{
