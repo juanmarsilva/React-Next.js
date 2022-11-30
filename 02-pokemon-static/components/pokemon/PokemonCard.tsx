@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { SmallPokemon } from "../../interfaces";
 import { Card, Grid, Row, Text } from '@nextui-org/react';
+import { useRouter } from "next/router";
 
 interface Props {
     pokemon: SmallPokemon;
@@ -9,28 +10,38 @@ interface Props {
 export const PokemonCard: FC<Props> = ({ pokemon }) => {
 
     const { img, name, id } = pokemon;
+    const router = useRouter();
+
+    const onClick = () => {
+        router.push(`/pokemon/${ id }`);
+    }
 
     return (
-        <Grid xs={ 6 } sm={ 3 } md={ 2 } xl={ 1 } key={ id } >
+        <Grid xs={ 6 } sm={ 3 } md={ 2 } xl={ 2 } key={ id } >
 
-            <Card isHoverable isPressable >
-            <Card.Body css={{ p: 1 }}>
+            <Card 
+                isHoverable 
+                isPressable 
+                onClick={onClick}    
+            >
 
-                <Card.Image 
-                    src={ img }  
-                    width='100%'
-                    height={ 140 }
-                />
+                <Card.Body css={{ p: 1 }}>
 
-            </Card.Body>
+                    <Card.Image 
+                        src={ img }  
+                        width='100%'
+                        height={ 140 }
+                    />
 
-            <Card.Footer>
-                <Row justify='space-between' >
-                <Text transform='capitalize'> { name } </Text>
-                <Text transform='capitalize'> { id } </Text>
-                </Row>
+                </Card.Body>
 
-            </Card.Footer>
+                <Card.Footer>
+                    <Row justify='space-between' >
+                    <Text transform='capitalize'> { name } </Text>
+                    <Text transform='capitalize'> { id } </Text>
+                    </Row>
+
+                </Card.Footer>
 
             </Card>
 
