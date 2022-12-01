@@ -14,9 +14,12 @@ interface Props {
 const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
     // const router = useRouter();
+    const { name, sprites, id } = pokemon;
+    const { other, front_default, front_shiny, back_default, back_shiny } = sprites;
+
 
     return (
-        <Layout title={`${ pokemon.id } - ${ pokemon.name } `} >
+        <Layout title={`${ id } - ${ name } `} >
             
             <Grid.Container css={{ marginTop: '5px' }} gap={ 2 }>
 
@@ -30,8 +33,8 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
                         <Card.Body>
 
                             <Card.Image 
-                                src={ pokemon.sprites.other?.dream_world.front_default  || '/no-image.png' }
-                                alt={ pokemon.name }
+                                src={ other?.dream_world.front_default  || '/no-image.png' }
+                                alt={ name }
                                 width='100%'
                                 height={ 200 }
                             />    
@@ -46,7 +49,7 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
                     <Card>
 
                         <Card.Header css={{ display: 'flex', justifyContent: 'space-between' }} >
-                            <Text h1 transform='capitalize'> { pokemon.name } </Text>
+                            <Text h1 transform='capitalize'> { name } </Text>
 
                             <Button
                                 color='gradient'
@@ -64,29 +67,29 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
                             <Container direction='row' display='flex' gap={ 0 } >
 
                                 <Image 
-                                    src={ pokemon.sprites.front_default }
-                                    alt={ pokemon.name }
+                                    src={ front_default }
+                                    alt={ name }
                                     width={ 100 }
                                     height={ 100 }
                                 />
 
                                 <Image 
-                                    src={ pokemon.sprites.back_default }
-                                    alt={ pokemon.name }
+                                    src={ back_default }
+                                    alt={ name }
                                     width={ 100 }
                                     height={ 100 }
                                 />
 
                                 <Image 
-                                    src={ pokemon.sprites.front_shiny }
-                                    alt={ pokemon.name }
+                                    src={ front_shiny }
+                                    alt={ name }
                                     width={ 100 }
                                     height={ 100 }
                                 />
                                 
                                 <Image 
-                                    src={ pokemon.sprites.back_shiny }
-                                    alt={ pokemon.name }
+                                    src={ back_shiny }
+                                    alt={ name }
                                     width={ 100 }
                                     height={ 100 }
                                 />
@@ -123,10 +126,27 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   
     const { id } = params as { id: string };
     const { data } = await pokeApi<Pokemon>(`/pokemon/${ id }`);
+
+    const { name, sprites } = data;
+    const { other, front_default, front_shiny, back_default, back_shiny } = sprites;
+
+    const specificSprites = {
+        other,
+        front_default,
+        front_shiny,
+        back_default,
+        back_shiny
+    }
+
+    const pokemon = {
+        name,
+        sprites: specificSprites,
+        id
+    };
     
     return {
       props: {
-        pokemon: data
+        pokemon
       }
     };
 };
