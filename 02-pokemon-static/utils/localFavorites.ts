@@ -24,9 +24,16 @@ const existPokemonInFavorites = ( id: number ): boolean => {
 
 };
 
+const pokemons = (): number[] => {
+
+    return JSON.parse( localStorage.getItem('favorites') || '[]' )
+
+};
+
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
     toggleFavorite,
-    existPokemonInFavorites
+    existPokemonInFavorites,
+    pokemons
 }
