@@ -4,7 +4,7 @@ import { Card, Grid, Text, Button, Container, Image } from '@nextui-org/react';
 import confetti from 'canvas-confetti';
 import { pokeApi } from '../../api';
 import { Layout } from '../../components/layouts';
-import { Pokemon } from '../../interfaces';
+import { Pokemon, PokemonListResponse } from '../../interfaces';
 import { localFavorites } from '../../utils';
 
 
@@ -12,7 +12,7 @@ interface Props {
     pokemon: Pokemon;
 }
 
-const PokemonPage: NextPage<Props> = ({ pokemon }) => {
+const PokemonByNamePage: NextPage<Props> = ({ pokemon }) => {
 
     const { name, sprites, id } = pokemon;
     const { other, front_default, front_shiny, back_default, back_shiny } = sprites;
@@ -128,11 +128,12 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
-    const pokemon649 = [...Array(649)].map(( value, index ) => `${ index + 1 }`)
+    const { data } = await pokeApi<PokemonListResponse>(`/pokemon?limit=649`);
+    const pokemonNames: string[] = data.results.map(({ name }) => name )
     
     return {
-        paths: pokemon649.map( id => ({
-            params: { id }
+        paths: pokemonNames.map( name => ({
+            params: { name }
         })),
         fallback: false
     };
@@ -141,33 +142,18 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   
-    const { id } = params as { id: string };
-    const { data } = await pokeApi<Pokemon>(`/pokemon/${ id }`);
+    const { name } = params as { name: string };
+    const { data } = await pokeApi<Pokemon>(`/pokemon/${ name }`);
 
-    const { name, sprites } = data;
-    const { other, front_default, front_shiny, back_default, back_shiny } = sprites;
-
-    const specificSprites = {
-        other,
-        front_default,
-        front_shiny,
-        back_default,
-        back_shiny
-    }
-
-    const pokemon = {
-        name,
-        sprites: specificSprites,
-        id
-    };
     
+
     return {
       props: {
-        pokemon
+        pokemon: data
       }
     };
 };
   
 
 
-export default PokemonPage;
+export default PokemonByNamePage;
