@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Image, Text } from '@nextui-org/react';
+import { useEffect, useState } from 'react';
 import { Layout } from '../../components/layouts';
 import { EmptyFavorites } from '../../components/ui';
 import { localFavorites } from '../../utils';
+import { FavoritePokemons } from '../../components/pokemon';
 
 const FavoritesPage = () => {
 
@@ -15,9 +15,13 @@ const FavoritesPage = () => {
     return (
         <Layout title='Pokémons - Favoritos' >
             
-            <EmptyFavorites />
+            {
+                favoritePokemons.length === 0
 
-            
+                ? <EmptyFavorites />
+
+                : <FavoritePokemons favoritePokemons={ favoritePokemons } />
+            }
 
         </Layout>
     )
