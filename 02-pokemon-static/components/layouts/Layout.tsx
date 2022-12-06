@@ -17,7 +17,7 @@ export const Layout: FC<Props> = ({ children, title }) => {
         <>
             <Head>
 
-                <title> { title || 'Pokemon App' } </title>
+                <title> { title ? title[0].toUpperCase() + title.slice(1) : 'Pokemon App' } </title>
                 <meta name='author' content='Juan Martin Silva' />
                 <meta name='description' content={`Informacion sobre el pokemon ${ title }`} />
                 <meta name='keywords' content={`${ title }, pokemon, pokedex`} />
