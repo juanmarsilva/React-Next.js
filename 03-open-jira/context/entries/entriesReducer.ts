@@ -3,6 +3,7 @@ import { Entry } from '../../interfaces';
 
 type EntriesActionType =
 | { type: '[Entry] - Add Entry', payload: Entry }
+| { type: '[Entry] - Entry Updated', payload: Entry }
 
 
 export const entriesReducer = ( state: EntriesState, { type, payload }: EntriesActionType ): EntriesState => {
@@ -13,6 +14,19 @@ export const entriesReducer = ( state: EntriesState, { type, payload }: EntriesA
            entries: [...state.entries, payload]
         };
     };
+
+    if( type === '[Entry] - Entry Updated' ) {
+        return {
+            ...state,
+            entries: state.entries.map( entry => {
+                if( entry._id === payload._id ) {
+                    entry.status = payload.status;
+                    entry.description = payload.description;
+                }
+                return entry;
+            })
+        }
+    }
 
     return state;
 }
