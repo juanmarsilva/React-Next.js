@@ -14,26 +14,7 @@ interface Props {
 
 
 const Entries_INITIAL_STATE: EntriesState = {
-   entries: [
-      {
-         _id: uuidv4(),
-         description: "Pendiente: Pariatur magna ut nisi fugiat sunt reprehenderit enim id velit enim laboris cillum.",
-         status: 'pending',
-         createdAt: Date.now(),
-      },
-      {
-         _id: uuidv4(),
-         description: "En progreso: Fugiat aute aliquip esse enim non dolore amet veniam irure et nostrud.",
-         status: 'in-progress',
-         createdAt: Date.now() - 1000000,
-      },
-      {
-         _id: uuidv4(),
-         description: "Completado: Pariatur Lorem aliqua ea et aliqua aliquip exercitation aliquip veniam mollit.",
-         status: 'finished',
-         createdAt: Date.now() - 100000,
-      },
-   ],
+   entries: [],
 };
 
 

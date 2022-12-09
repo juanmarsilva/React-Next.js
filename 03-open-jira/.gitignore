@@ -3,6 +3,9 @@
 #db
 mongo/
 
+#env
+.env
+
 # dependencies
 /node_modules
 /.pnp
