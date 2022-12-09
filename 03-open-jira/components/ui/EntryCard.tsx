@@ -10,7 +10,15 @@ interface Props {
 
 export const EntryCard: FC<Props> = ({ entry }) => {
 
-    const { setIsDragging } = useContext( UIContext )
+    const { setIsDragging } = useContext( UIContext );
+    const { description, createdAt } = entry;
+    
+
+    const time = ( createdAt: number ): string => {
+     
+        return `Hace ${ Math.floor((Date.now() - createdAt) / 1000 / 60) } minutos`;
+
+    }
 
     const onDragStart = ( event: DragEvent ) => {
         
@@ -34,12 +42,12 @@ export const EntryCard: FC<Props> = ({ entry }) => {
             <CardActionArea>
 
                 <CardContent>
-                    <Typography sx={{ whiteSpace: 'pre-line'}}> { entry.description } </Typography>
+                    <Typography sx={{ whiteSpace: 'pre-line'}}> { description } </Typography>
                 </CardContent>
 
                 <CardActions sx={{ display: 'flex', justifyContent: 'end', paddingRight: 2 }} >
 
-                    <Typography variant='body2' > Hace 30 minutos</Typography>
+                    <Typography variant='body2' > { time( createdAt ) } </Typography>
 
                 </CardActions>
 
