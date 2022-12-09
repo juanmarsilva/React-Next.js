@@ -26,21 +26,34 @@ const updateEntry = async ( req: NextApiRequest, res: NextApiResponse<Data> ) =>
     const { id } = req.query;
     
     await db.connect();
-    
+
     const entryUpdated = await EntryModel.findById( id );
     
-    if( !entryUpdated ) return res.status(400).json( {msg: `No hay entrada con dicho ID: ${ id }` });
+    if( !entryUpdated ) {
+        await db.disconnect();
+        return res.status(400).json( {msg: `No hay entrada con dicho ID: ${ id }` });
+    }
     
     const { 
         description = entryUpdated?.description, 
         status = entryUpdated.status 
     } = req.body;
 
-    const updatedEntry = await EntryModel.findByIdAndUpdate( id, { description, status }, { runValidators: true, new: true } );
+    try {
+        
+        const updatedEntry = await EntryModel.findByIdAndUpdate( id, { description, status }, { runValidators: true, new: true } );
 
-    await db.disconnect();
+        await db.disconnect();
 
-    return res.status(200).json( updatedEntry! );
+        return res.status(200).json( updatedEntry! );
+
+    } catch(err) {
+        
+        console.log(err);
+        await db.disconnect();
+        return res.status(400).json({ msg: 'Bad Request' });
+
+    };
 
 };
 
