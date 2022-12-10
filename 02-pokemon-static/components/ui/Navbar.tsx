@@ -2,6 +2,7 @@ import React from 'react';
 import NextLink from 'next/link';
 import Image from 'next/image';
 import { Spacer, Text, useTheme, Link } from '@nextui-org/react';
+import { Filters } from './';
 
 export const Navbar = () => {
    
@@ -36,6 +37,11 @@ export const Navbar = () => {
             </NextLink>
 
             <Spacer css={{ flex: 1 }} />
+
+            <Filters />
+
+            <Spacer css={{ flex: 1 }} />
+
 
             <NextLink href='/favorites' passHref legacyBehavior >
                 <a>

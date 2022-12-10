@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import { Grid } from '@nextui-org/react';
 import { Layout }  from '../components/layouts';
@@ -7,13 +7,14 @@ import { Paginated } from '../components/ui';
 import { pokeApi } from '../api';
 import { PokemonListResponse, SmallPokemon } from '../interfaces';
 import { usePaginated } from '../Hooks';
+import { PokemonContext } from '../context/pokemon';
 
-interface Props {
-  pokemons: SmallPokemon[];
-}
 
-const HomePage: NextPage<Props> = ({ pokemons }) => {
 
+const HomePage: NextPage = () => {
+
+  const { pokemons } = useContext( PokemonContext );
+  
   const { currentPage, pokemonsPerPage, pages, setCurrentPage, currentPokemons } = usePaginated({ pokemons });
 
   return (
@@ -37,20 +38,6 @@ const HomePage: NextPage<Props> = ({ pokemons }) => {
 //- The data can be publicly cached (not user-specific).
 //- The page must be pre-rendered (for SEO) and be very fast — getStaticProps generates HTML and JSON files, both of which can be cached by a CDN for performance.
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  
-  const { data } = await pokeApi<PokemonListResponse>('/pokemon?limit=649');
-  const pokemons: SmallPokemon[] = data.results.map(( poke, index ) => ({
-    ...poke,
-    id: index + 1,
-    img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${ index + 1 }.svg`,
-  }));
 
-  return {
-    props: {
-      pokemons
-    }
-  };
-};
 
 export default HomePage;
