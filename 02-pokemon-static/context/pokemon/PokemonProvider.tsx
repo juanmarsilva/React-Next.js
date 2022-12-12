@@ -26,40 +26,40 @@ export const PokemonProvider: FC<Props> = ({ children }) => {
 
     const [ state, dispatch ] = useReducer( pokemonReducer, Pokemon_INITIAL_STATE )
 
-    const getAllPokemons = async () => {
+    // const getAllPokemons = async () => {
 
-        try {
+    //     try {
 
-            const { data } = await pokeApi<PokemonListResponse>('/pokemon?limit=151');
+    //         const { data } = await pokeApi<PokemonListResponse>('/pokemon?limit=151');
 
-            let pokemons: SmallPokemon[] = data.results.map(( pokemon, index ) => {  
-                return {
-                    ...pokemon,
-                    id: index + 1,
-                    img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${ index + 1 }.svg`,
-                }
-            });
+    //         let pokemons: SmallPokemon[] = data.results.map(( pokemon, index ) => {  
+    //             return {
+    //                 ...pokemon,
+    //                 id: index + 1,
+    //                 img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${ index + 1 }.svg`,
+    //             }
+    //         });
 
-            for ( let pokemon of pokemons ) {
+    //         for ( let pokemon of pokemons ) {
                 
-                const { data } = await pokeApi<Pokemon>(`/pokemon/${ pokemon.id }`);
+    //             const { data } = await pokeApi<Pokemon>(`/pokemon/${ pokemon.id }`);
  
-                const { types, stats } = data;
+    //             const { types, stats } = data;
 
-                pokemon.types = types.map( (type: Type) => type.type.name );
-                pokemon.stats = stats.map((stat: Stat) => ({
-                    name: stat.stat.name,
-                    value: stat.base_stat
-                }))
+    //             pokemon.types = types.map( (type: Type) => type.type.name );
+    //             pokemon.stats = stats.map((stat: Stat) => ({
+    //                 name: stat.stat.name,
+    //                 value: stat.base_stat
+    //             }))
                 
-            };
+    //         };
 
-            dispatch({ type: '[Pokemon] - GET POKEMONS', payload: pokemons });
+    //         dispatch({ type: '[Pokemon] - GET POKEMONS', payload: pokemons });
 
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
 
     const filterPokemonsByType = ( type: Key ) => dispatch({ type: '[Pokemon] - FILTER BY TYPE', payload: type });
 
@@ -84,9 +84,9 @@ export const PokemonProvider: FC<Props> = ({ children }) => {
     }
 
 
-    useEffect(() => {
-        getAllPokemons();
-    }, []);
+    // useEffect(() => {
+    //     getAllPokemons();
+    // }, []);
 
     return (
        <PokemonContext.Provider value={{ 
