@@ -1,4 +1,3 @@
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { pokeApi } from "../api";
 import { Pokemon } from "../interfaces";
 
@@ -9,7 +8,7 @@ export const getPokemonInfo = async ( nameOrId: string ) => {
     
         const { data } = await pokeApi<Pokemon>(`/pokemon/${ nameOrId }`);
         
-        const { id, sprites, name } = data;
+        const { id, sprites, name, types } = data;
         const { other, front_default, front_shiny, back_default, back_shiny } = sprites;
     
         const specificSprites = {
@@ -23,11 +22,14 @@ export const getPokemonInfo = async ( nameOrId: string ) => {
         return {
             name,
             sprites: specificSprites,
-            id
+            id,
+            types
         };
     
     } catch(err) {
+
         return null;
+        
     }
 
 };

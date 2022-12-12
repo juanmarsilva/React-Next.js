@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import { Card, Grid, Text, Button, Container, Image } from '@nextui-org/react';
 import confetti from 'canvas-confetti';
-import { pokeApi } from '../../api';
-import { Layout } from '../../components/layouts';
+import { Layout } from '../../components/';
 import { Pokemon } from '../../interfaces';
 import { getPokemonInfo, localFavorites } from '../../utils';
 

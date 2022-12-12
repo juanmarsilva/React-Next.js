@@ -12,8 +12,8 @@ export const usePaginated = ( { pokemons }: Props ) => {
     const [pokemonsPerPage, setPokemonsPerPage] = useState(59);
     const indexOfLastPokemon = currentPage * pokemonsPerPage;
     const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
-    const currentPokemons = pokemons.slice( indexOfFirstPokemon, indexOfLastPokemon );
-    const pages = Math.ceil(pokemons.length / pokemonsPerPage);
+    const currentPokemons = pokemons?.slice( indexOfFirstPokemon, indexOfLastPokemon );
+    const pages = Math.ceil(pokemons?.length / pokemonsPerPage);
 
     return {
         currentPage,
