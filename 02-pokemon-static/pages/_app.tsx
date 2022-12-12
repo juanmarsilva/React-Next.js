@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { darkTheme } from '../themes/index';
 import { PokemonProvider } from '../context/pokemon';
 
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <PokemonProvider>

@@ -1,12 +1,12 @@
 import React from 'react';
 import NextLink from 'next/link';
 import Image from 'next/image';
-import { Spacer, Text, useTheme, Link } from '@nextui-org/react';
-import { Filters } from './';
+import { Spacer, Text, useTheme } from '@nextui-org/react';
+import { Filters, Ordering } from './';
 
 export const Navbar = () => {
    
-   const { theme } = useTheme()
+   const { theme } = useTheme();
 
     return (
         <div style={{
@@ -39,6 +39,7 @@ export const Navbar = () => {
             <Spacer css={{ flex: 1 }} />
 
             <Filters />
+            <Ordering />
 
             <Spacer css={{ flex: 1 }} />
 

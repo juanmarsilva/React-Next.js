@@ -1,4 +1,4 @@
-import { Type, Stat } from "./";
+import { Type } from "./";
 
 export interface PokemonListResponse {
     count:    number;
@@ -12,6 +12,11 @@ export interface SmallPokemon {
     url:  string;
     id:   number;
     img:  string;
-    types: Type[];
-    stats: Stat[]; 
+    types: string[];
+    stats: SmallPokemonStat[]; 
+}
+
+export interface SmallPokemonStat {
+    name: string;
+    value: number;
 }

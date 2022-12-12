@@ -127,10 +127,10 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
-    const pokemon649 = [...Array(649)].map(( value, index ) => `${ index + 1 }`)
+    const pokemon151 = [...Array(151)].map(( value, index ) => `${ index + 1 }`)
     
     return {
-        paths: pokemon649.map( id => ({
+        paths: pokemon151.map( id => ({
             params: { id }
         })),
         // fallback: false

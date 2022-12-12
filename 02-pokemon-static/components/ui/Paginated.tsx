@@ -10,7 +10,7 @@ interface Props {
     setCurrentPage: (page: number) => void;
 }
 
-export const Paginated: FC<Props> = ({ currentPage, pokemonsPerPage, pages, setCurrentPage }) => {
+export const Paginated: FC<Props> = ({ pages, setCurrentPage }) => {
 
     
     

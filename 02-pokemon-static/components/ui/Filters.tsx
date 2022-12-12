@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { Key, useContext, useEffect } from "react";
 import { Dropdown } from "@nextui-org/react";
+import { PokemonContext } from "../../context";
 
 export const Filters = () => {
 
+    const { filterPokemonsByType, getPokemonTypes, types } = useContext( PokemonContext );
 
+    useEffect(() => {
+        getPokemonTypes();
+    });
 
     return (
         <Dropdown>
             
-            <Dropdown.Button flat > Type </Dropdown.Button>
+            <Dropdown.Button flat id="Type" > Type </Dropdown.Button>
             
-            <Dropdown.Menu aria-label="Static Actions" >
+            <Dropdown.Menu aria-label="Actions" onAction={ ( key: Key ) => filterPokemonsByType( key ) }  >
 
-                <Dropdown.Item key='fire' > Fire </Dropdown.Item>
-                <Dropdown.Item key='water' > Water </Dropdown.Item>
-                <Dropdown.Item key='plant' > Plant </Dropdown.Item>
+                {
+                    types.map(type => <Dropdown.Item textValue={ type.name } key={ type.name }> { type.name } </Dropdown.Item>)
+                }
 
             </Dropdown.Menu>
         </Dropdown>
