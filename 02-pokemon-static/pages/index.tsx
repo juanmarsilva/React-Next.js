@@ -1,6 +1,6 @@
 import { NextPage, GetStaticProps } from 'next';
 import { Grid } from '@nextui-org/react';
-import { Layout, PokemonCard, Paginated }  from '../components/';
+import { Layout, PokemonCard, Paginated, SearchBar }  from '../components/';
 import { usePaginated } from '../Hooks';
 import {  SmallPokemon, PokemonListResponse, Pokemon, Type, Stat } from '../interfaces';
 import { pokeApi } from '../api';
@@ -17,6 +17,8 @@ const HomePage: NextPage<Props> = ({ pokemons }) => {
   
   return (
     <Layout title='Listado de Pokémons'>
+
+      <SearchBar />
 
       <Paginated currentPage={ currentPage } pokemonsPerPage={ pokemonsPerPage } pages={ pages } setCurrentPage={ setCurrentPage } />
       
