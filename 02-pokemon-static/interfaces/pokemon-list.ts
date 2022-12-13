@@ -1,4 +1,3 @@
-import { Type } from "./";
 
 export interface PokemonListResponse {
     count:    number;
