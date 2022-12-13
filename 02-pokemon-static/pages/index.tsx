@@ -1,12 +1,12 @@
-import { useState } from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import { Grid } from '@nextui-org/react';
-import { Layout, PokemonCard, Paginated, SearchBar }  from '../components/';
+import { Layout, PokemonCard, Paginated }  from '../components/';
 import { usePaginated } from '../Hooks';
 import {  SmallPokemon, PokemonListResponse, Pokemon, Type, Stat } from '../interfaces';
 import { pokeApi } from '../api';
 import { useContext } from 'react';
-import { PokemonContext } from '../context';
+import { PokemonContext } from '../context/pokemon/PokemonContext';
+
 
 interface Props {
   allPokemons: SmallPokemon[];
@@ -15,7 +15,13 @@ interface Props {
 
 const HomePage: NextPage<Props> = ({ allPokemons }) => {
 
+  const { dbPokemons } = useContext( PokemonContext );
+
+  console.log(dbPokemons)
+
   const { currentPage, pokemonsPerPage, pages, setCurrentPage, currentPokemons } = usePaginated({ allPokemons });
+
+  
   
   return (
     <Layout title='Listado de Pokémons'>

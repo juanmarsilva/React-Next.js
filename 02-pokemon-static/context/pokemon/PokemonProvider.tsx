@@ -1,13 +1,16 @@
-import { FC, useReducer, Key } from 'react';
+import { FC, useReducer, Key, useEffect } from 'react';
 import { pokeApi } from '../../api';
 import { SmallPokemon, Types, Result, Pokemon } from '../../interfaces';
 import { PokemonContext, pokemonReducer } from './';
+import pokeDbApi from '../../api/pokeDbApi';
+import { CreatedPokemon } from '../../interfaces/created-pokemon';
 
 
 export interface PokemonState {
     pokemons: SmallPokemon[];
-    allPokemons: SmallPokemon[],
-    types: Result[]
+    allPokemons: SmallPokemon[];
+    types: Result[];
+    dbPokemons: CreatedPokemon[];
 }
 
 interface Props {
@@ -18,7 +21,8 @@ interface Props {
 const Pokemon_INITIAL_STATE: PokemonState = {
    pokemons: [],
    allPokemons: [],
-   types: []
+   types: [],
+   dbPokemons: [],
 }
 
 
@@ -46,7 +50,7 @@ export const PokemonProvider: FC<Props> = ({ children }) => {
 
         }
 
-    }
+    };
 
     const searchPokemon = async ( name: string ) => {
 
@@ -61,8 +65,19 @@ export const PokemonProvider: FC<Props> = ({ children }) => {
             // dispatch({ type: '[Pokemon] - SEARCH POKEMON', payload: { msg: 'No fue encontrado dicho Pokemon' } })
 
         }
+    };
+
+    const getAllPokemons = async () => {
+        
+        const { data } = await pokeDbApi<CreatedPokemon[]>('/pokemon');
+
+        dispatch({ type: '[Pokemon] - GET DB POKEMONS', payload: data })
+
     }
 
+    useEffect(() => {
+        getAllPokemons();
+    }, [])
 
     return (
        <PokemonContext.Provider value={{ 

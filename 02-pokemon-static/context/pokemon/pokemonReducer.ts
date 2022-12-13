@@ -1,6 +1,7 @@
 import { Key } from 'react';
 import { Result, SmallPokemon } from '../../interfaces';
 import { PokemonState } from './';
+import { CreatedPokemon } from '../../interfaces/created-pokemon';
 
 type PokemonActionType =
 | { type: '[Pokemon] - GET POKEMONS', payload: SmallPokemon[] }
@@ -8,6 +9,7 @@ type PokemonActionType =
 | { type: '[Pokemon] - FILTER BY TYPE', payload: Key }
 | { type: '[Pokemon] - ORDER BY ATTACK', payload: Key }
 | { type: '[Pokemon] - SEARCH POKEMON', payload: SmallPokemon[] }
+| { type: '[Pokemon] - GET DB POKEMONS', payload: CreatedPokemon[] }
 
 
 
@@ -65,6 +67,13 @@ export const pokemonReducer = ( state: PokemonState, { type, payload }: PokemonA
         return {
             ...state,
             pokemons: payload
+        }
+    };
+
+    if( type === '[Pokemon] - GET DB POKEMONS' ) {
+        return {
+            ...state,
+            dbPokemons: payload,
         }
     }
 
