@@ -8,7 +8,7 @@ export const getPokemonInfo = async ( nameOrId: string ) => {
     
         const { data } = await pokeApi<Pokemon>(`/pokemon/${ nameOrId }`);
         
-        const { id, sprites, name, types } = data;
+        const { id, sprites, name, types, stats, height, weight, } = data;
         const { other, front_default, front_shiny, back_default, back_shiny } = sprites;
     
         const specificSprites = {
@@ -23,7 +23,10 @@ export const getPokemonInfo = async ( nameOrId: string ) => {
             name,
             sprites: specificSprites,
             id,
-            types
+            types,
+            stats,
+            height,
+            weight
         };
     
     } catch(err) {

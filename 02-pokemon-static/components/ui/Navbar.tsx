@@ -2,6 +2,7 @@ import React from 'react';
 import NextLink from 'next/link';
 import Image from 'next/image';
 import { Spacer, Text, useTheme } from '@nextui-org/react';
+import { SiPokemon } from 'react-icons/si';
 
 export const Navbar = () => {
    
@@ -29,8 +30,9 @@ export const Navbar = () => {
                         height={50}
                     />
 
-                    <Text color='white' h2 > P </Text>
-                    <Text color='white' h3 > okémon </Text>
+                    {/* <Text color='white' h2 > P </Text>
+                    <Text color='white' h3 > okémon </Text> */}
+                    <SiPokemon color='white' size={ 90 } />
                 </a>
 
             </NextLink>
