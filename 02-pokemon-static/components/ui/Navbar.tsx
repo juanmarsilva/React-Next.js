@@ -1,50 +1,43 @@
-import React from 'react';
-import NextLink from 'next/link';
-import Image from 'next/image';
-import { Spacer, Text, useTheme } from '@nextui-org/react';
-import { SiPokemon } from 'react-icons/si';
+import React from "react";
+import NextLink from "next/link";
+import Image from "next/image";
+import { Spacer, Text, useTheme } from "@nextui-org/react";
+import { SmallPokeball } from "./";
 
 export const Navbar = () => {
-   
-   const { theme } = useTheme();
+  const { theme } = useTheme();
 
-    return (
-        <div style={{
-            alignItems: 'center',
-            backgroundColor: theme?.colors.gray50.value,
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'start',
-            padding: '0px 20px',
-            width: '100%',
-        }}>
+  return (
+    <div
+      style={{
+        alignItems: "center",
+        backgroundColor: theme?.colors.gray50.value,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "start",
+        padding: "0px 20px",
+        width: "100%",
+        height: '80px'
+      }}
+    >
+      <NextLink href="/" passHref legacyBehavior>
+        <a style={{ display: "flex" }}>
 
-            <NextLink href='/' passHref legacyBehavior >
+            <SmallPokeball />
 
-                <a style={{ display: 'flex' }}>
-                    
-                    <Image
-                        src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg'
-                        alt='icono de la app'
-                        width={50}
-                        height={50}
-                    />
+        </a>
+      </NextLink>
 
-                    {/* <Text color='white' h2 > P </Text>
-                    <Text color='white' h3 > okémon </Text> */}
-                    <SiPokemon color='white' size={ 90 } />
-                </a>
+      <Spacer css={{ flex: 1 }} />
 
-            </NextLink>
-
-            <Spacer css={{ flex: 1 }} />
-
-            <NextLink href='/favorites' passHref legacyBehavior >
-                <a>
-                    <Text color='white' h3 > Favoritos </Text>
-                </a>
-            </NextLink>
-
-        </div>
-    );
+      <NextLink href="/favorites" passHref legacyBehavior>
+        <a>
+          <Text color="white" h3>
+            {" "}
+            Favoritos{" "}
+          </Text>
+        </a>
+      </NextLink>
+    </div>
+  );
 };

@@ -15,13 +15,7 @@ interface Props {
 
 const HomePage: NextPage<Props> = ({ allPokemons }) => {
 
-
   const { currentPage, pokemonsPerPage, pages, setCurrentPage, currentPokemons } = usePaginated({ allPokemons });
-
-
-  // const { pokemons } = useContext( PokemonContext );
-
-   
   
   return (
     <Layout title='Listado de Pokémons'>
@@ -33,8 +27,6 @@ const HomePage: NextPage<Props> = ({ allPokemons }) => {
           currentPokemons?.map(( pokemon ) => <PokemonCard key={ pokemon.id } pokemon={ pokemon }  /> )
         }
       </Grid.Container>
-
-      <Paginated currentPage={ currentPage } pokemonsPerPage={ pokemonsPerPage } pages={ pages } setCurrentPage={ setCurrentPage } />
 
     </Layout>
   )

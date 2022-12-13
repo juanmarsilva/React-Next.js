@@ -8,8 +8,8 @@ interface Props {
 
 export const usePaginated = ( { allPokemons }: Props ) => {
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pokemonsPerPage, setPokemonsPerPage] = useState(59);
+    const [ currentPage, setCurrentPage ] = useState(1);
+    const [ pokemonsPerPage, setPokemonsPerPage ] = useState(59);
     const indexOfLastPokemon = currentPage * pokemonsPerPage;
     const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
     const currentPokemons = allPokemons?.slice( indexOfFirstPokemon, indexOfLastPokemon );

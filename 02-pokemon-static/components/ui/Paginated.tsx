@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Pagination, Grid } from '@nextui-org/react';
 
+
 interface Props {
     currentPage: number;
     pokemonsPerPage: number;
@@ -12,8 +13,6 @@ interface Props {
 
 export const Paginated: FC<Props> = ({ pages, setCurrentPage }) => {
 
-    
-    
     return (
         <Grid style={{ padding: '20px 10px 10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
 
