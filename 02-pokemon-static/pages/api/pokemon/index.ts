@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '../../../database';
-import  { PokemonModel, IPokemon } from '../../../models/Index';
+import  { PokemonModel, IPokemon } from '../../../models/';
 
 
 type Data = 
