@@ -11,6 +11,7 @@ interface ContextProps {
     filterPokemonsByType: ( type: Key ) => void;
     getPokemonTypes: () => void;
     orderByAttack: ( type: Key ) => void;
+    searchPokemon: ( name: string ) => void;
 }
 
 

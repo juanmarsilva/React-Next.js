@@ -1,24 +1,30 @@
+import { useState } from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import { Grid } from '@nextui-org/react';
 import { Layout, PokemonCard, Paginated, SearchBar }  from '../components/';
 import { usePaginated } from '../Hooks';
 import {  SmallPokemon, PokemonListResponse, Pokemon, Type, Stat } from '../interfaces';
 import { pokeApi } from '../api';
+import { useContext } from 'react';
+import { PokemonContext } from '../context';
 
 interface Props {
-  pokemons: SmallPokemon[];
+  allPokemons: SmallPokemon[];
 }
 
 
-const HomePage: NextPage<Props> = ({ pokemons }) => {
+const HomePage: NextPage<Props> = ({ allPokemons }) => {
 
-  
-  const { currentPage, pokemonsPerPage, pages, setCurrentPage, currentPokemons } = usePaginated({ pokemons });
+
+  const { currentPage, pokemonsPerPage, pages, setCurrentPage, currentPokemons } = usePaginated({ allPokemons });
+
+
+  // const { pokemons } = useContext( PokemonContext );
+
+   
   
   return (
     <Layout title='Listado de Pokémons'>
-
-      <SearchBar />
 
       <Paginated currentPage={ currentPage } pokemonsPerPage={ pokemonsPerPage } pages={ pages } setCurrentPage={ setCurrentPage } />
       
@@ -44,13 +50,13 @@ export const getStaticProps: GetStaticProps = async () => {
   
   const { data } = await pokeApi<PokemonListResponse>('/pokemon?limit=649');
 
-  let pokemons: SmallPokemon[] = data.results.map(( pokemon, index )=> ({
+  let allPokemons: SmallPokemon[] = data.results.map(( pokemon, index )=> ({
     ...pokemon,
     id: index + 1,
     img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${ index + 1 }.svg`,
   }));
 
-  for ( let pokemon of pokemons ) {
+  for ( let pokemon of allPokemons ) {
                 
     const { data } = await pokeApi<Pokemon>(`/pokemon/${ pokemon.id }`);
 
@@ -66,7 +72,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      pokemons
+      allPokemons
     },
     revalidate: 86400 
   }

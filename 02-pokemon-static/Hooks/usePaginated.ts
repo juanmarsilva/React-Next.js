@@ -2,18 +2,18 @@ import { useState } from "react";
 import { SmallPokemon } from "../interfaces";
 
 interface Props {
-    pokemons: SmallPokemon[];
+    allPokemons: SmallPokemon[];
 }
 
 
-export const usePaginated = ( { pokemons }: Props ) => {
+export const usePaginated = ( { allPokemons }: Props ) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [pokemonsPerPage, setPokemonsPerPage] = useState(59);
     const indexOfLastPokemon = currentPage * pokemonsPerPage;
     const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
-    const currentPokemons = pokemons?.slice( indexOfFirstPokemon, indexOfLastPokemon );
-    const pages = Math.ceil(pokemons?.length / pokemonsPerPage);
+    const currentPokemons = allPokemons?.slice( indexOfFirstPokemon, indexOfLastPokemon );
+    const pages = Math.ceil(allPokemons?.length / pokemonsPerPage);
 
     return {
         currentPage,

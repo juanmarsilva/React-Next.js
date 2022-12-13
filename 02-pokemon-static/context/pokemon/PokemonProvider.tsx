@@ -1,6 +1,6 @@
-import { FC, useReducer, useEffect, Key } from 'react';
+import { FC, useReducer, Key } from 'react';
 import { pokeApi } from '../../api';
-import { SmallPokemon, PokemonListResponse, Type, Types, Result, Pokemon, Stat } from '../../interfaces';
+import { SmallPokemon, Types, Result, Pokemon } from '../../interfaces';
 import { PokemonContext, pokemonReducer } from './';
 
 
@@ -26,41 +26,6 @@ export const PokemonProvider: FC<Props> = ({ children }) => {
 
     const [ state, dispatch ] = useReducer( pokemonReducer, Pokemon_INITIAL_STATE )
 
-    // const getAllPokemons = async () => {
-
-    //     try {
-
-    //         const { data } = await pokeApi<PokemonListResponse>('/pokemon?limit=151');
-
-    //         let pokemons: SmallPokemon[] = data.results.map(( pokemon, index ) => {  
-    //             return {
-    //                 ...pokemon,
-    //                 id: index + 1,
-    //                 img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${ index + 1 }.svg`,
-    //             }
-    //         });
-
-    //         for ( let pokemon of pokemons ) {
-                
-    //             const { data } = await pokeApi<Pokemon>(`/pokemon/${ pokemon.id }`);
- 
-    //             const { types, stats } = data;
-
-    //             pokemon.types = types.map( (type: Type) => type.type.name );
-    //             pokemon.stats = stats.map((stat: Stat) => ({
-    //                 name: stat.stat.name,
-    //                 value: stat.base_stat
-    //             }))
-                
-    //         };
-
-    //         dispatch({ type: '[Pokemon] - GET POKEMONS', payload: pokemons });
-
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
-
     const filterPokemonsByType = ( type: Key ) => dispatch({ type: '[Pokemon] - FILTER BY TYPE', payload: type });
 
     const orderByAttack = ( type: Key ) => dispatch({ type: '[Pokemon] - ORDER BY ATTACK', payload: type })
@@ -83,10 +48,21 @@ export const PokemonProvider: FC<Props> = ({ children }) => {
 
     }
 
+    const searchPokemon = async ( name: string ) => {
 
-    // useEffect(() => {
-    //     getAllPokemons();
-    // }, []);
+        try {
+
+            const { data } = await pokeApi<SmallPokemon[]>(`/pokemon/${ name.toLowerCase() }`);
+
+            dispatch({ type: '[Pokemon] - SEARCH POKEMON', payload: data });
+
+        } catch (err) {
+            
+            // dispatch({ type: '[Pokemon] - SEARCH POKEMON', payload: { msg: 'No fue encontrado dicho Pokemon' } })
+
+        }
+    }
+
 
     return (
        <PokemonContext.Provider value={{ 
@@ -96,6 +72,7 @@ export const PokemonProvider: FC<Props> = ({ children }) => {
             filterPokemonsByType,
             getPokemonTypes,
             orderByAttack,
+            searchPokemon,
         }} 
        >
           { children }
