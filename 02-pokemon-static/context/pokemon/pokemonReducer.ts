@@ -1,7 +1,7 @@
 import { Key } from 'react';
 import { Result, SmallPokemon } from '../../interfaces';
 import { PokemonState } from './';
-import { CreatedPokemon } from '../../interfaces/created-pokemon';
+
 
 type PokemonActionType =
 | { type: '[Pokemon] - GET POKEMONS', payload: SmallPokemon[] }
@@ -9,7 +9,7 @@ type PokemonActionType =
 | { type: '[Pokemon] - FILTER BY TYPE', payload: Key }
 | { type: '[Pokemon] - ORDER BY ATTACK', payload: Key }
 | { type: '[Pokemon] - SEARCH POKEMON', payload: SmallPokemon[] }
-| { type: '[Pokemon] - GET DB POKEMONS', payload: CreatedPokemon[] }
+| { type: '[Pokemon] - GET DB POKEMONS', payload: SmallPokemon[] }
 
 
 
@@ -50,14 +50,14 @@ export const pokemonReducer = ( state: PokemonState, { type, payload }: PokemonA
         if( payload === 'asc' ) {
             return {
                 ...state,
-                pokemons: state.pokemons.sort(( a, b ) => a.stats[1].value - b.stats[1].value )
+                pokemons: state.pokemons.sort(( a, b ) => a.stats[1].base_stat - b.stats[1].base_stat )
             };
         };
 
         if( payload === 'dsc' ) {
             return {
                 ...state,
-                pokemons: state.pokemons.sort(( a, b ) => b.stats[1].value - a.stats[1].value )
+                pokemons: state.pokemons.sort(( a, b ) => b.stats[1].base_stat - a.stats[1].base_stat )
             };
         }
     }

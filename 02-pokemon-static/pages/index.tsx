@@ -1,11 +1,13 @@
+import { useContext } from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import { Grid } from '@nextui-org/react';
 import { Layout, PokemonCard, Paginated }  from '../components/';
 import { usePaginated } from '../Hooks';
 import {  SmallPokemon, PokemonListResponse, Pokemon, Type, Stat } from '../interfaces';
 import { pokeApi } from '../api';
-import { useContext } from 'react';
-import { PokemonContext } from '../context/pokemon/PokemonContext';
+import { PokemonContext } from '../context/';
+import pokeDbApi from '../api/pokeDbApi';
+
 
 
 interface Props {
@@ -15,13 +17,12 @@ interface Props {
 
 const HomePage: NextPage<Props> = ({ allPokemons }) => {
 
+
   const { dbPokemons } = useContext( PokemonContext );
 
-  console.log(dbPokemons)
+  allPokemons = [ ...allPokemons, ...dbPokemons ];
 
   const { currentPage, pokemonsPerPage, pages, setCurrentPage, currentPokemons } = usePaginated({ allPokemons });
-
-  
   
   return (
     <Layout title='Listado de Pokémons'>
@@ -30,7 +31,7 @@ const HomePage: NextPage<Props> = ({ allPokemons }) => {
       
       <Grid.Container gap={ 2 } justify='center' >
         {
-          currentPokemons?.map(( pokemon ) => <PokemonCard key={ pokemon.id } pokemon={ pokemon }  /> )
+          currentPokemons?.map(( pokemon ) => <PokemonCard key={ pokemon._id } pokemon={ pokemon }  /> )
         }
       </Grid.Container>
 
@@ -50,21 +51,25 @@ export const getStaticProps: GetStaticProps = async () => {
 
   let allPokemons: SmallPokemon[] = data.results.map(( pokemon, index )=> ({
     ...pokemon,
-    id: index + 1,
-    img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${ index + 1 }.svg`,
+    _id: index + 1,
+    sprites: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${ index + 1 }.svg`,
   }));
+
+  allPokemons = [ ...allPokemons ];
 
   for ( let pokemon of allPokemons ) {
                 
-    const { data } = await pokeApi<Pokemon>(`/pokemon/${ pokemon.id }`);
+    const { data } = await pokeApi<Pokemon>(`/pokemon/${ pokemon._id }`);
 
-    const { types, stats } = data;
+    const { types, stats, height, weight } = data;
 
     pokemon.types = types.map( (type: Type) => type.type.name );
-    pokemon.stats = stats.map((stat: Stat) => ({
-        name: stat.stat.name,
-        value: stat.base_stat
-    }))
+    pokemon.stats = stats.map(({ stat, base_stat }: Stat) => ({
+        name: stat.name,
+        base_stat,
+    }));
+    pokemon.height = height;
+    pokemon.weight = weight;
     
   };
 

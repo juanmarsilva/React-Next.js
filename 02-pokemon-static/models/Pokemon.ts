@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { CreatedPokemon } from '../interfaces/';
+import { SmallPokemon } from '../interfaces/';
 
-export interface IPokemon extends CreatedPokemon {};
+export interface IPokemon extends SmallPokemon {};
 
 const pokemonSchema = new Schema({
     name: { type: String, required: true },

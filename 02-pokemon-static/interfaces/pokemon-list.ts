@@ -7,15 +7,16 @@ export interface PokemonListResponse {
 }
 
 export interface SmallPokemon {
+    _id:   number;
     name: string;
-    url:  string;
-    id:   number;
-    img:  string;
     types: string[];
-    stats: SmallPokemonStat[]; 
+    stats: SmallPokemonStat[];
+    height: number;
+    weight: number;
+    sprites: string;
 }
 
 export interface SmallPokemonStat {
     name: string;
-    value: number;
+    base_stat: number;
 }

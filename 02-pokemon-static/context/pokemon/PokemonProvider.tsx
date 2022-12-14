@@ -3,14 +3,15 @@ import { pokeApi } from '../../api';
 import { SmallPokemon, Types, Result, Pokemon } from '../../interfaces';
 import { PokemonContext, pokemonReducer } from './';
 import pokeDbApi from '../../api/pokeDbApi';
-import { CreatedPokemon } from '../../interfaces/created-pokemon';
+import { PokemonListResponse } from '../../interfaces/pokemon-list';
+
 
 
 export interface PokemonState {
     pokemons: SmallPokemon[];
     allPokemons: SmallPokemon[];
     types: Result[];
-    dbPokemons: CreatedPokemon[];
+    dbPokemons: SmallPokemon[];
 }
 
 interface Props {
@@ -28,7 +29,22 @@ const Pokemon_INITIAL_STATE: PokemonState = {
 
 export const PokemonProvider: FC<Props> = ({ children }) => {
 
-    const [ state, dispatch ] = useReducer( pokemonReducer, Pokemon_INITIAL_STATE )
+    const [ state, dispatch ] = useReducer( pokemonReducer, Pokemon_INITIAL_STATE );
+
+    const getAllDbPokemons = async () => {
+        
+        const { data } = await pokeDbApi<SmallPokemon[]>('/pokemon');
+
+        dispatch({ type: '[Pokemon] - GET DB POKEMONS', payload: data })
+
+    };
+
+    const getPokemons = async () => {
+        
+        const { data } = await pokeApi<PokemonListResponse>('/pokemon');
+
+        dispatch({ type: '[Pokemon] - GET POKEMONS', payload: data.results  });
+    }
 
     const filterPokemonsByType = ( type: Key ) => dispatch({ type: '[Pokemon] - FILTER BY TYPE', payload: type });
 
@@ -67,17 +83,12 @@ export const PokemonProvider: FC<Props> = ({ children }) => {
         }
     };
 
-    const getAllPokemons = async () => {
-        
-        const { data } = await pokeDbApi<CreatedPokemon[]>('/pokemon');
-
-        dispatch({ type: '[Pokemon] - GET DB POKEMONS', payload: data })
-
-    }
-
+   
     useEffect(() => {
-        getAllPokemons();
-    }, [])
+        getPokemons();
+        getAllDbPokemons();
+        getPokemonTypes();
+    }, []);
 
     return (
        <PokemonContext.Provider value={{ 
