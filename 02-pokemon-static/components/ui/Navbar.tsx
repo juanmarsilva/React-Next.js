@@ -20,17 +20,15 @@ export const Navbar = () => {
         height: '80px'
       }}
     >
-      <NextLink href="/" passHref legacyBehavior>
+      <NextLink href="/" passHref legacyBehavior >
         <a style={{ display: "flex" }}>
-
-            <SmallPokeball />
-
+          <SmallPokeball />
         </a>
       </NextLink>
 
       <Spacer css={{ flex: 1 }} />
 
-      <NextLink href="/favorites" passHref legacyBehavior>
+      <NextLink href="/favorites" passHref legacyBehavior >
         <a>
           <Text color="white" h3>
             {" "}
