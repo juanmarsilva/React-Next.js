@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import { Card, Grid, Text, Container, Image, Progress, Button, Row } from '@nextui-org/react';
 import confetti from 'canvas-confetti';
-import { Layout } from '../../components/';
+import { Layout } from '../../components';
 import { Pokemon } from '../../interfaces';
 import { getPokemonInfo, localFavorites } from '../../utils';
 import { BsSuitHeart, BsSuitHeartFill } from 'react-icons/bs';
+import pokeApi from '../../api/pokeApi';
+import { PokemonListResponse } from '../../interfaces/pokemon-list';
 
 interface Props {
     pokemon: Pokemon;
@@ -14,11 +16,13 @@ interface Props {
 const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
     const { name, sprites, id, stats, types, height, weight } = pokemon;
+
     const { other, front_default, front_shiny, back_default, back_shiny } = sprites;
     const [ isInFavorites, setIsInFavorites ] = useState( localFavorites.existPokemonInFavorites( id ) );
     
     const onToggleFavorite = () => {
-        localFavorites.toggleFavorite( id );
+
+        localFavorites.toggleFavorite( id, name );
         setIsInFavorites( !isInFavorites );
 
         if( isInFavorites ) return;
@@ -171,12 +175,12 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
-    const pokemon649 = [...Array(649)].map(( value, index ) => `${ index + 1 }`)
+    const { data } = await pokeApi<PokemonListResponse>('/pokemon?limit=649');
     
     return {
-        paths: pokemon649.map( id => ({
-            params: { id }
-        })),
+        paths: data.results.map(({ name }) => ({
+            params: { name }
+        }) ),
         // fallback: false
         fallback: 'blocking',
     };
@@ -185,9 +189,9 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   
-    const { id } = params as { id: string };
+    const { name } = params as { name: string };
 
-    const pokemon = await getPokemonInfo( id );
+    const pokemon = await getPokemonInfo( name );
 
     if ( !pokemon ) {
         return {

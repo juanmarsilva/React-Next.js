@@ -3,10 +3,12 @@ import { Layout } from '../../components/layouts';
 import { EmptyFavorites } from '../../components/ui';
 import { localFavorites } from '../../utils';
 import { FavoritePokemons } from '../../components/pokemon';
+import { FavoritePokemon } from '../../utils/localFavorites';
+
 
 const FavoritesPage = () => {
 
-    const [ favoritePokemons, setFavoritePokemons ] = useState<number[]>([]);
+    const [ favoritePokemons, setFavoritePokemons ] = useState<FavoritePokemon[]>([]);
 
     useEffect(() => {
         setFavoritePokemons( localFavorites.pokemons );

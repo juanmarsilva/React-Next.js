@@ -1,14 +1,21 @@
 
+export interface FavoritePokemon {
+    id: number;
+    name: string;
+}
 
-const toggleFavorite = ( id: number ) => {
 
-    let favorites: number[] = JSON.parse(localStorage.getItem('favorites') || '[]' );
+const toggleFavorite = ( id: number, name: string ) => {
 
-    if( favorites.includes( id ) ) {
-        favorites = favorites.filter( pokeId => pokeId !== id );
+    let favorites: FavoritePokemon[] = JSON.parse(localStorage.getItem('favorites') || '[]' );
+
+    if ( favorites.some( pokemon => pokemon.id === id ) ) {
+        favorites = favorites.filter( pokemon => pokemon.id !== id );
     } else {
-        favorites.push( id );
-    };
+        favorites.push({ name, id });
+    }
+
+    console.log(favorites)
 
     localStorage.setItem('favorites', JSON.stringify( favorites ));
 
@@ -18,13 +25,13 @@ const existPokemonInFavorites = ( id: number ): boolean => {
 
     if( typeof window === 'undefined' ) return false;
 
-    const favorites: number[] = JSON.parse(localStorage.getItem('favorites') || '[]' );
+    const favorites: FavoritePokemon[] = JSON.parse(localStorage.getItem('favorites') || '[]' );
 
-    return favorites.includes( id );
+    return favorites.some( pokemon => pokemon.id === id );
 
 };
 
-const pokemons = (): number[] => {
+const pokemons = (): FavoritePokemon[] => {
 
     return JSON.parse( localStorage.getItem('favorites') || '[]' )
 
