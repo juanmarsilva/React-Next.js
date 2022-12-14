@@ -2,7 +2,7 @@ import React from "react";
 import NextLink from "next/link";
 import Image from "next/image";
 import { Spacer, Text, useTheme } from "@nextui-org/react";
-import { SmallPokeball } from "./";
+import { CreatePokemon, SmallPokeball } from "./";
 
 export const Navbar = () => {
   const { theme } = useTheme();
@@ -25,6 +25,10 @@ export const Navbar = () => {
           <SmallPokeball />
         </a>
       </NextLink>
+
+      <Spacer css={{ flex: 1 }} />
+
+      <CreatePokemon />
 
       <Spacer css={{ flex: 1 }} />
 
