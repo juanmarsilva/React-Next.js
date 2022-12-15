@@ -23,23 +23,25 @@ const handler = ( req: NextApiRequest, res: NextApiResponse<Data> ) => {
 
 }
 
-const updateEntry = async ( req: NextApiRequest, res: NextApiResponse<Data> ) => {
+const updateEntry = async ( { query, body }: NextApiRequest, res: NextApiResponse<Data> ) => {
 
-    const { id } = req.query;
+    const { id } = query;
     
     await db.connect();
 
     const entryUpdated = await EntryModel.findById( id );
     
     if( !entryUpdated ) {
+
         await db.disconnect();
+        
         return res.status(400).json( {msg: `No hay entrada con dicho ID: ${ id }` });
     }
     
     const { 
         description = entryUpdated?.description, 
         status = entryUpdated.status 
-    } = req.body;
+    } = body;
 
     try {
         
@@ -52,16 +54,18 @@ const updateEntry = async ( req: NextApiRequest, res: NextApiResponse<Data> ) =>
     } catch(err) {
         
         console.log(err);
+        
         await db.disconnect();
+
         return res.status(400).json({ msg: 'Bad Request' });
 
     };
 
 };
 
-const getEntry = async (  req: NextApiRequest, res: NextApiResponse<Data>  ) => {
+const getEntry = async (  { query }: NextApiRequest, res: NextApiResponse<Data>  ) => {
 
-    const { id } = req.query;
+    const { id } = query;
 
     await db.connect();
 
@@ -72,7 +76,7 @@ const getEntry = async (  req: NextApiRequest, res: NextApiResponse<Data>  ) => 
     if ( !entry ) return res.status(400).json({ msg: `No existe entrada con dicho ID: ${ id }` })
 
     return res.status(200).json( entry );
-    
+
 };
 
 
