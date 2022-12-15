@@ -15,6 +15,8 @@ const handler = ( req: NextApiRequest, res: NextApiResponse<Data> ) => {
 
     if( !mongoose.isValidObjectId( id ) ) return res.status(400).json( { msg: `${ id } is not a valid ID`} );
 
+    if( method  === 'GET' ) return getEntry( req, res );
+
     if( method === 'PUT' ) return updateEntry( req, res );
 
     return res.status(400).json({ msg: `${ method } does not exist ` });
@@ -55,6 +57,22 @@ const updateEntry = async ( req: NextApiRequest, res: NextApiResponse<Data> ) =>
 
     };
 
+};
+
+const getEntry = async (  req: NextApiRequest, res: NextApiResponse<Data>  ) => {
+
+    const { id } = req.query;
+
+    await db.connect();
+
+    const entry = await EntryModel.findById( id );
+
+    await db.disconnect();
+
+    if ( !entry ) return res.status(400).json({ msg: `No existe entrada con dicho ID: ${ id }` })
+
+    return res.status(200).json( entry );
+    
 };
 
 
