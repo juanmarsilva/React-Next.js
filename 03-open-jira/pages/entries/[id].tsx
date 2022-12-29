@@ -7,6 +7,7 @@ import { Layout } from '../../components/layouts/Layout';
 import { Entry, EntryStatus } from '../../interfaces/';
 import { dbEntries } from '../../database';
 import { EntriesContext } from '../../context/entries/EntriesContext';
+import { dateFunctions } from '../../utils';
 
 
 const validStatus: EntryStatus[] = [ 'pending', 'in-progress', 'finished' ];
@@ -46,7 +47,7 @@ const EntryPage: FC<Props> = ({ entry }) => {
             description: inputValue,
         };
  
-        updateEntry( updatedEntry );
+        updateEntry( updatedEntry, true );
 
         
     };
@@ -68,7 +69,7 @@ const EntryPage: FC<Props> = ({ entry }) => {
 
                         <CardHeader 
                             title={`Entrada: ${ inputValue }`}
-                            subheader={`Creada hace ${ entry.createdAt } minutos`}
+                            subheader={ `Creada hace ${dateFunctions.getFormatDistanceToNow( entry.createdAt )}` }
                         />
 
                         <CardContent>
