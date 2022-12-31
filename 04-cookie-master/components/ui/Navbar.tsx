@@ -1,7 +1,6 @@
 import NextLink from 'next/link';
-import { AppBar, Toolbar, IconButton, Link, Typography } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 import { MenuOutlined } from '@mui/icons-material';
-
 
 
 export const Navbar = () => {
@@ -19,17 +18,17 @@ export const Navbar = () => {
                 </IconButton>
                   
                 <NextLink href='/' passHref style={{ textDecoration: 'none' }}>
-                    <Link style={{ textDecoration: 'none' }} >
-                        <Typography variant='h6' color='white' >Cookie Master</Typography>
-                    </Link>
+
+                    <Typography variant='h6' color='white' >Cookie Master</Typography>
+
                 </NextLink>
 
                 <div style={{ flex: 1 }} />
 
                 <NextLink href='/theme-changer' passHref style={{ textDecoration: 'none' }} >
-                    <Link style={{ textDecoration: 'none' }}> 
-                        <Typography variant='h6' color='white' >Cambiar tema</Typography>
-                    </Link>
+
+                    <Typography variant='h6' color='white' >Cambiar tema</Typography>
+
                 </NextLink>
 
             </Toolbar>
