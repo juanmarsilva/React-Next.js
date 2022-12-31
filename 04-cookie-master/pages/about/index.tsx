@@ -1,7 +1,8 @@
+import { NextPage } from 'next';
 
 
 
-const AboutPage = () => {
+const AboutPage: NextPage = () => {
     
     
     return (

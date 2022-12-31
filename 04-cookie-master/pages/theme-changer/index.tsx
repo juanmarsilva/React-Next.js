@@ -5,9 +5,13 @@ import { Layout } from "../../components/layouts";
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-const ThemeChangerPage: FC = ( props ) => {
+interface Props {
+    theme: string;
+}
 
-    const [currentTheme, setCurrentTheme] = useState('light');
+const ThemeChangerPage: FC<Props> = ({ theme }) => {
+
+    const [currentTheme, setCurrentTheme] = useState( theme );
 
     const onThemeChange = ( event: ChangeEvent<HTMLInputElement> ) => {
 
@@ -76,9 +80,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
     const { theme = 'light', name = 'No name' } = req.cookies;
 
+    const validThemes = [ 'light', 'dark', 'custom' ];
+
     return {
         props: {
-            theme,
+            theme: validThemes.includes( theme ) ? theme : 'dark' ,
             name
         }
     }
