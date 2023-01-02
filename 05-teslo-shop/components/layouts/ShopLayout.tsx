@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Head from "next/head"
-import { NavBar } from "../ui";
+import { NavBar, SideMenu } from "../ui";
 
 interface Props {
     children?: JSX.Element | JSX.Element[];
@@ -33,7 +33,7 @@ export const ShopLayout: FC<Props> = ({ children, title, pageDescription, imageF
 
             </nav>
 
-            {/* Todo: sidebar */}
+            <SideMenu />
 
             <main style={{
                 margin: '80px auto',
