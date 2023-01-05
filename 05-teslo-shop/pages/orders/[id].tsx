@@ -1,14 +1,31 @@
 import { NextPage } from 'next';
 import NextLink from 'next/link'
-import { Box, Card, CardContent, Divider, Grid, Typography, Button, Link } from '@mui/material';
+import { Box, Card, CardContent, Divider, Grid, Typography, Button, Link, Chip } from '@mui/material';
 import { ShopLayout } from '../../components/layouts';
 import { CartList, OrdenSummary } from '../../components/cart';
+import { CreditCardOffOutlined, CreditScoreOutlined } from '@mui/icons-material';
 
-const SummaryPage: NextPage = () => {
+const OrderPage: NextPage = () => {
     return (
-        <ShopLayout title='Order summary' pageDescription='Order summary' >
+        <ShopLayout title='Order summary 542' pageDescription='Order summary' >
             
-            <Typography variant='h1' component='h1'> Order summary </Typography>
+            <Typography variant='h1' component='h1'> Order: 542 </Typography>
+
+            {/* <Chip
+                sx={{ my: 2 }}
+                label='Outstanding'
+                variant='outlined'
+                color='error'
+                icon={ <CreditCardOffOutlined /> }
+            /> */}
+
+            <Chip
+                sx={{ my: 2 }}
+                label='Paid'
+                variant='outlined'
+                color='success'
+                icon={ <CreditScoreOutlined /> }
+            />
 
             <Grid container >
                 <Grid item xs={ 12 } sm={ 7 } >
@@ -55,9 +72,16 @@ const SummaryPage: NextPage = () => {
                             <OrdenSummary />
 
                             <Box sx={{ mt: 3 }}>
-                                <Button color='secondary' className='circular-btn' fullWidth >
-                                    Confirm order
-                                </Button>
+                                {/* TODO */}
+                                <h1>Pagar</h1>
+
+                                <Chip
+                                    sx={{ my: 2 }}
+                                    label='Paid'
+                                    variant='outlined'
+                                    color='success'
+                                    icon={ <CreditScoreOutlined /> }
+                                />
                             </Box>
 
                         </CardContent>
@@ -71,4 +95,5 @@ const SummaryPage: NextPage = () => {
     )
 }
 
-export default SummaryPage
+export default OrderPage
+
