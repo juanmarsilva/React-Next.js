@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import { ShopLayout } from '../../components/layouts';
 import { Grid, Box, Typography, Button, Chip } from '@mui/material';
 import { initialData } from '../../database/products';
-import { ProductSlideshow } from '../../components/products';
+import { ProductSlideshow, SizeSelector } from '../../components/products';
 import { ItemCounter } from '../../components/ui';
 
 const product = initialData.products[0];
@@ -31,14 +31,19 @@ const ProductPage: NextPage = () => {
 
                         {/* Cantity */}
                         <Box sx={{ my: 2 }} >
-                            <Typography variant='subtitle2' component='h2' > Cantidad </Typography>
+                            <Typography variant='subtitle2' component='h2' > Cantity </Typography>
 
                             <ItemCounter />
+
+                            <SizeSelector 
+                                // selectedSize={ product.sizes[0] }
+                                sizes={ product.sizes }
+                            />
                         </Box>
 
                         {/* Add to Cart */}
                         <Button color='secondary' className='circular-btn' >
-                            Agregar al carrito
+                            Add to cart
                         </Button>
 
                         {/* <Chip label='No hay disponibles' color='error' variant='outlined' /> */}
@@ -46,7 +51,7 @@ const ProductPage: NextPage = () => {
                         {/* Description */}
                         <Box sx={{ mt: 3 }}>
 
-                            <Typography variant="subtitle2" > Descripción </Typography>
+                            <Typography variant="subtitle2" > Description </Typography>
 
                             <Typography variant="body2" > { product.description } </Typography>
                         </Box>
