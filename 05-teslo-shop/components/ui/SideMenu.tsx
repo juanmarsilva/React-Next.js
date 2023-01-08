@@ -1,5 +1,6 @@
 import { Box, Divider, Drawer, IconButton, Input, InputAdornment, List, ListItem, ListItemIcon, ListItemText, ListSubheader, ListItemButton } from "@mui/material"
 import { AccountCircleOutlined, AdminPanelSettings, CategoryOutlined, ConfirmationNumberOutlined, EscalatorWarningOutlined, FemaleOutlined, LoginOutlined, MaleOutlined, SearchOutlined, VpnKeyOutlined } from "@mui/icons-material"
+import { MaterialUISwitch } from "./custom"
 
 
 export const SideMenu = () => {
@@ -23,7 +24,7 @@ export const SideMenu = () => {
                                     <IconButton
                                         aria-label="toggle password visibility"
                                     >
-                                    <SearchOutlined />
+                                        <SearchOutlined />
                                     </IconButton>
                                 </InputAdornment>
                             }
@@ -105,6 +106,10 @@ export const SideMenu = () => {
                         </ListItemIcon>
                         <ListItemText primary={'Usuarios'} />
                     </ListItemButton>
+                    
+                    <Box display='flex' justifyContent='center'  >
+                        <MaterialUISwitch sx={{ m: 1 }} defaultChecked={ false } />
+                    </Box>
 
                 </List>
             </Box>
