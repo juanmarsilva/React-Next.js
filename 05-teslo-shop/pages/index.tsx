@@ -2,6 +2,7 @@ import { Typography } from '@mui/material';
 import { NextPage } from 'next'
 import { ShopLayout } from '../components/layouts/';
 import { ProductList } from '../components/products';
+import { Loading } from '../components/ui';
 import { initialData } from '../database/products';
 import { useProducts } from '../hooks';
 
@@ -20,7 +21,7 @@ const HomePage: NextPage = () => {
 
             {
                 isLoading
-                    ? <h1>Cargando..</h1>
+                    ? <Loading />
                     : <ProductList products={ products } />
             }
 
