@@ -4,7 +4,7 @@ import { IProduct } from '../../../interfaces/products';
 import { ProductModel } from '../../../models';
 
 type Data = 
-|{ msg: string }
+| { msg: string }
 | IProduct
 
 const hanlder = ( req: NextApiRequest, res: NextApiResponse<Data> ) => {
@@ -14,7 +14,7 @@ const hanlder = ( req: NextApiRequest, res: NextApiResponse<Data> ) => {
     if( method === 'GET' ) return getProductBySlug( req, res );
 
     return res.status(400).json({ msg: 'Bad request' });
-}
+};
 
 const getProductBySlug = async ( req: NextApiRequest, res: NextApiResponse<Data> ) => {
 
@@ -40,7 +40,7 @@ const getProductBySlug = async ( req: NextApiRequest, res: NextApiResponse<Data>
 
         return res.status(404).json({ msg: 'No ha sido encontrado dicho producto' });
 
-    }
+    };
 
 };
 
