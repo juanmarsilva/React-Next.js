@@ -2,16 +2,20 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router'
 import { AppBar, Badge, Box, Button, IconButton, Link, Toolbar, Typography } from "@mui/material"
 import { SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material';
+import { useContext } from 'react';
+import { UIContext } from '../../context/ui/UIContext';
 
 
 export const NavBar = () => {
 
     const { asPath } = useRouter();
 
+    const { toogleSideMenu } = useContext( UIContext );
+
     return (
         <AppBar>
             <Toolbar>
-
+                
                 <NextLink href='/' passHref legacyBehavior >
                     <Link display='flex' alignItems='center' >
                         <Typography variant='h6'> Teslo |</Typography>
@@ -57,7 +61,7 @@ export const NavBar = () => {
                     </Link>
                 </NextLink>
 
-                <Button>
+                <Button onClick={ toogleSideMenu } >
                     Menu
                 </Button>
 

@@ -39,7 +39,8 @@ export const ShopLayout: FC<Props> = ({ children, title, pageDescription, imageF
                 margin: '80px auto',
                 maxWidth: '1440px',
                 padding: '0px 30px'
-            }}>
+            }}
+            >
 
                 { children }
 
