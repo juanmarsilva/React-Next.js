@@ -55,5 +55,55 @@ export const getAllProductsSlugs = async (): Promise<ProductSlug[]> => {
         return [];
     }
 
+};
+
+export const getProductsByTerm = async ( term: string ): Promise<IProduct[]> => {
+
+    try {
+        
+        await db.connect();
+
+        const products = await ProductModel.find({
+            $text: { $search: term }
+        })
+        .select('title images price inStock slug -_id')
+        .lean()
+
+        await db.disconnect();
+
+        return products;
+
+    } catch( err ) {
+
+        console.log( err );
+
+        await db.disconnect();
+
+        return [];
+    };
+};
+
+export const getAllProducts = async (): Promise<IProduct[]> => {
+
+    try {
+    
+        await db.connect();
+
+        const products = ProductModel.find().lean();
+
+        await db.disconnect();
+
+        return JSON.parse( JSON.stringify( products ) );
+
+    } catch( err ) {
+
+        console.log( err );
+
+        await db.disconnect();
+
+        return [];
+    }
+
+
 
 };
